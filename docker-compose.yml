@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  spark-processor:
+    build: .
+    env_file: .env
+    ports:
+      - "${JUPYTER_PORT}:8880"
+    volumes:
+      - ./source_data:/home/jovyan/source_data
+      - ./parquet_data:/home/jovyan/parquet_data
+    environment:
+      - JUPYTER_TOKEN=${JUPYTER_TOKEN}
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 4G
